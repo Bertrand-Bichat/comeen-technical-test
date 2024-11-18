@@ -77,8 +77,7 @@ class DeskBooking < ApplicationRecord
   end
 
   def can_checkout?
-    occupied = desk.deskq_device.present? ? desk.deskq_device.occupied? : true
-    occupied && (end_datetime <= user.current_local_time)
+    desk.deskq_device.present? ? desk.deskq_device.occupied? : true
   end
 
   def set_device_as_available!
