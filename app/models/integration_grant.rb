@@ -1,5 +1,24 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: integration_grants
+#
+#  id         :integer          not null, primary key
+#  domain     :string           not null
+#  provider   :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :integer          not null
+#
+# Indexes
+#
+#  index_integration_grants_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  user_id  (user_id => users.id)
+#
 # Records that a user has granted access to an integration
 class IntegrationGrant < ApplicationRecord
   belongs_to :user
