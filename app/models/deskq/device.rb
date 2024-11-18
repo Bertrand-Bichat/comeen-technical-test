@@ -12,8 +12,6 @@ module Deskq
     validates :color, presence: true, inclusion: { in: COLORS }
     validates :desk_sync_id, presence: true
 
-    before_validation :link_desk, on: :create
-
     def new_color
       color == "RED" ? "GREEN" : "RED"
     end
@@ -36,12 +34,6 @@ module Deskq
       return if color == "RED"
 
       Deskq::Devices::DevicesService.change_color(id, "RED")
-    end
-
-    private
-
-    def link_desk
-      self.desk = Desk.find_by(sync_id: desk_sync_id)
     end
   end
 end

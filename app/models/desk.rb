@@ -27,4 +27,12 @@ class Desk < ApplicationRecord
 
   validates :name, presence: true
   validates :sync_id, uniqueness: true, allow_nil: true
+
+  after_create_commit :fetch_deskq_device
+
+  private
+
+  def fetch_deskq_device
+    FetchDeskqDeviceJob.perform_later(id)
+  end
 end
