@@ -27,7 +27,7 @@ module Deskq
           req.params["color"] = color
         end
 
-        device.update(color: color)
+        device.update(color: color, last_synced_at: Time.current)
         JSON.parse(response.body)
       end
     end
