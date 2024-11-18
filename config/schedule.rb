@@ -19,3 +19,7 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+every 1.day, at: "1:00 am" do
+  runner "Deskq::Device.fetch_all_devices"
+end

@@ -25,15 +25,21 @@ module Deskq
     end
 
     def mark_as_available!
-      return if color == "GREEN"
+      return if available?
 
       Deskq::Devices::DevicesService.new.change_color(id, "GREEN")
     end
 
     def mark_as_occupied!
-      return if color == "RED"
+      return if occupied?
 
       Deskq::Devices::DevicesService.new.change_color(id, "RED")
+    end
+
+    class << self
+      def fetch_all_devices
+        FetchAllDeskqDevicesJob.perform_later
+      end
     end
   end
 end

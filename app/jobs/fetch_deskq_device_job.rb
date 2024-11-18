@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FetchDeskqDeviceJob < ApplicationJob
   queue_as :default
 
