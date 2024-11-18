@@ -12,7 +12,7 @@ module Deskq
 
     belongs_to :desk, optional: true
 
-    def change_color
+    def new_color
       color == "RED" ? "GREEN" : "RED"
     end
   end

@@ -5,7 +5,7 @@ module Deskq
     class Synchronizer
       attr_reader :device
 
-      def initialize(credentials, device)
+      def initialize(device)
         @device = device
       end
 

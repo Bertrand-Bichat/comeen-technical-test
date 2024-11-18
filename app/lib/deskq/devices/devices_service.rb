@@ -19,12 +19,12 @@ module Deskq
       end
 
       def change_color(device_id)
-        device = Device.find(device_id)
+        device = Deskq::Device.find(device_id)
 
         response = @service.put("#{@base_url}/#{device.api_id}") do |req|
           req.headers["Content-Type"] = "application/json"
           req.headers["Authorization"] = "Bearer #{@api_key}"
-          req.params["color"] = device.change_color
+          req.params["color"] = device.new_color
         end
 
         JSON.parse(response.body)
