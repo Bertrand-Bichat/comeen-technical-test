@@ -1,0 +1,14 @@
+default: &default
+  api_key: <%= ENV.fetch('DESQ_DEVICES_API_KEY') %>
+
+production:
+  <<: *default
+
+staging:
+  <<: *default
+
+development:
+  <<: *default
+
+test:
+  <<: *default

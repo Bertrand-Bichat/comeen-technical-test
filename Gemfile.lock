@@ -364,6 +364,7 @@ DEPENDENCIES
   dotenv
   factory_bot_rails
   faker
+  faraday
   foreman
   google-apis-sheets_v4
   jsonapi.rb

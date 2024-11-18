@@ -65,6 +65,8 @@ gem "pundit"
 #
 # Google Sheets Desk sync Integration
 gem "google-apis-sheets_v4"
+# calls APIs
+gem "faraday"
 
 # API documentation
 gem "rswag-api"
