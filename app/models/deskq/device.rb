@@ -27,13 +27,13 @@ module Deskq
     def mark_as_available!
       return if color == "GREEN"
 
-      Deskq::Devices::DevicesService.change_color(id, "GREEN")
+      Deskq::Devices::DevicesService.new.change_color(id, "GREEN")
     end
 
     def mark_as_occupied!
       return if color == "RED"
 
-      Deskq::Devices::DevicesService.change_color(id, "RED")
+      Deskq::Devices::DevicesService.new.change_color(id, "RED")
     end
   end
 end

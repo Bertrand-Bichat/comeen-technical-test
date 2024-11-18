@@ -5,7 +5,7 @@ class FetchDeskqDeviceJob < ApplicationJob
     desk = Desk.find(desk_id)
     return if desk.sync_id.blank? || desk.deskq_device.present?
 
-    devices = Deskq::Devices::DevicesService.list
+    devices = Deskq::Devices::DevicesService.new.list
     devices.each do |device|
       next unless device["desk_sync_id"] == desk.sync_id
 
