@@ -11,21 +11,21 @@ module Deskq
     end
 
     def list_sync_changes
-      @desks_from_api = Deskq::Devices::Synchronizer.new(
+      @devices_from_api = Deskq::Devices::Synchronizer.new(
         Integrations.for(current_user, :deskq, :devices).credentials,
         @device,
       ).fetch_sync_changes
 
-      render(jsonapi: @desks_from_api)
+      render(jsonapi: @devices_from_api)
     end
 
-    def change_led_color
-      @desks_from_api = Deskq::Devices::Synchronizer.new(
+    def commit_sync
+      @devices_from_api = Deskq::Devices::Synchronizer.new(
         Integrations.for(current_user, :deskq, :devices).credentials,
         @device,
-      ).change_led_color!
+      ).apply_sync_changes!
 
-      render(jsonapi: @desks_from_api)
+      render(jsonapi: @devices_from_api)
     end
 
     private

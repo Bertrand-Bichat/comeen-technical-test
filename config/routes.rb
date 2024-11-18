@@ -28,4 +28,13 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  namespace :deskq do
+    resources :devices, only: [:index] do
+      member do
+        get :sync, to: "list_sync_changes" # GET = list changes that will be made
+        post :sync, to: "commit_sync" # POST = apply changes
+      end
+    end
+  end
 end
