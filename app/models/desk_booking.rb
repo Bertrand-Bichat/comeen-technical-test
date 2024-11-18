@@ -49,18 +49,45 @@ class DeskBooking < ApplicationRecord
 
     event :check_in do
       transitions from: :booked, to: :checked_in, guard: :can_checkin?
+      after do
+        set_device_as_occupied!
+      end
     end
 
     event :check_out do
-      transitions from: :checked_in, to: :checked_out
+      transitions from: :checked_in, to: :checked_out, guard: :can_checkout?
+      after do
+        set_device_as_available!
+      end
     end
 
     event :cancel do
       transitions from: [:booked, :checked_in], to: :canceled
+      after do
+        set_device_as_available!
+      end
     end
   end
 
   def can_checkin?
     start_datetime < Time.current
+  end
+
+  def can_checkout?
+    return true if desk.deskq_device.blank?
+
+    desk.deskq_device.occupied?
+  end
+
+  def set_device_as_available!
+    return if desk.deskq_device.blank?
+
+    desk.deskq_device.mark_as_available!
+  end
+
+  def set_device_as_occupied!
+    return if desk.deskq_device.blank?
+
+    desk.deskq_device.mark_as_occupied!
   end
 end
