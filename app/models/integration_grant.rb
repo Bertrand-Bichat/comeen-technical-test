@@ -19,7 +19,6 @@
 #
 #  user_id  (user_id => users.id)
 #
-# Records that a user has granted access to an integration
 class IntegrationGrant < ApplicationRecord
   belongs_to :user
 
