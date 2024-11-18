@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_18_113351) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_18_112512) do
   create_table "desk_bookings", force: :cascade do |t|
     t.integer "desk_id", null: false
     t.integer "user_id", null: false
@@ -26,22 +26,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_18_113351) do
   create_table "deskq_devices", force: :cascade do |t|
     t.string "color"
     t.string "desk_sync_id"
+    t.string "api_id"
     t.datetime "last_synced_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "desk_id"
     t.index ["desk_id"], name: "index_deskq_devices_on_desk_id"
-  end
-
-  create_table "deskq_oauth_tokens", force: :cascade do |t|
-    t.string "access_token"
-    t.string "refresh_token"
-    t.string "scope"
-    t.string "expires_at"
-    t.integer "integration_grant_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["integration_grant_id"], name: "index_deskq_oauth_tokens_on_integration_grant_id"
   end
 
   create_table "desks", force: :cascade do |t|
@@ -136,7 +126,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_18_113351) do
   add_foreign_key "desk_bookings", "desks"
   add_foreign_key "desk_bookings", "users"
   add_foreign_key "deskq_devices", "desks"
-  add_foreign_key "deskq_oauth_tokens", "integration_grants"
   add_foreign_key "desks", "google_desk_sheets"
   add_foreign_key "google_oauth_tokens", "integration_grants"
   add_foreign_key "integration_grants", "users"
