@@ -35,4 +35,8 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
   validates :time_zone, presence: true, inclusion: { in: TZInfo::Timezone.all_identifiers }
+
+  def current_local_time
+    Time.now.in_time_zone(time_zone)
+  end
 end

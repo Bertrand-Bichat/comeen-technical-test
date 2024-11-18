@@ -23,7 +23,16 @@
 class Desk < ApplicationRecord
   belongs_to :google_desk_sheet, optional: true, class_name: "Google::DeskSheet"
   has_many :desk_bookings, dependent: :destroy
+  has_one :deskq_device, class_name: "Deskq::Device"
 
   validates :name, presence: true
   validates :sync_id, uniqueness: true, allow_nil: true
+
+  after_create_commit :fetch_deskq_device
+
+  private
+
+  def fetch_deskq_device
+    FetchDeskqDeviceJob.perform_later(id)
+  end
 end

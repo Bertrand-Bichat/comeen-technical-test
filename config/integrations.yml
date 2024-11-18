@@ -3,6 +3,8 @@ default: &default
     sheets:
       scopes:
         - https://www.googleapis.com/auth/spreadsheets.readonly
+  deskq:
+    base_url: https://671a10dfacf9aa94f6a8f596.mockapi.io/api/v1/deskq
 
 production:
   <<: *default

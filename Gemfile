@@ -65,6 +65,8 @@ gem "pundit"
 #
 # Google Sheets Desk sync Integration
 gem "google-apis-sheets_v4"
+# calls APIs
+gem "faraday"
 
 # API documentation
 gem "rswag-api"
@@ -95,5 +97,4 @@ group :development do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-shopify", require: false
-  gem "annotate"
 end

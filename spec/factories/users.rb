@@ -19,5 +19,6 @@ FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
     password { SecureRandom.base58 }
+    time_zone { "Europe/Paris" }
   end
 end
