@@ -41,6 +41,8 @@ class DeskBooking < ApplicationRecord
     )
   end
 
+  after_create_commit :manage_desk_availability
+
   aasm column: :state do
     state :booked, initial: true
     state :canceled
@@ -70,13 +72,13 @@ class DeskBooking < ApplicationRecord
   end
 
   def can_checkin?
-    start_datetime < Time.current
+    available = desk.deskq_device.present? ? desk.deskq_device.available? : true
+    available && (start_datetime <= user.current_local_time)
   end
 
   def can_checkout?
-    return true if desk.deskq_device.blank?
-
-    desk.deskq_device.occupied?
+    occupied = desk.deskq_device.present? ? desk.deskq_device.occupied? : true
+    occupied && (end_datetime <= user.current_local_time)
   end
 
   def set_device_as_available!
@@ -89,5 +91,12 @@ class DeskBooking < ApplicationRecord
     return if desk.deskq_device.blank?
 
     desk.deskq_device.mark_as_occupied!
+  end
+
+  private
+
+  def manage_desk_availability
+    ScheduleDeskCheckinJob.set(wait_until: start_datetime.in_time_zone(user.time_zone)).perform_later(id)
+    ScheduleDeskCheckoutJob.set(wait_until: end_datetime.in_time_zone(user.time_zone)).perform_later(id)
   end
 end
